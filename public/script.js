@@ -1,4 +1,5 @@
-const socket = io('http://localhost:3000')
+const cnf = require('./config')
+const socket = io(`${cnf.APP.DOMAIN}:${cnf.APP.PORT}`)
 const messageContainer = document.getElementById('message-container')
 const roomContainer = document.getElementById('room-container')
 const messageForm = document.getElementById('send-container')

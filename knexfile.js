@@ -1,6 +1,5 @@
 // Update with your config settings.
 const cnf = require('./config')
-
 /**
  * @type { Object.<string, import("knex").Knex.Config> }
  */

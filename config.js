@@ -7,5 +7,9 @@ module.exports = {
         USER: process.env.DOCK_MYSQL_USER,
         NAME: process.env.DOCK_MYSQL_DB,
         PORT: process.env.DOCK_MYSQL_PORT
-    }  
+    },
+    APP: {
+        DOMAIN: process.env.APP_DOMAIN,
+        PORT: process.env.APP_PORT,
+    }
 }
