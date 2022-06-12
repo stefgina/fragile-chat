@@ -1,5 +1,6 @@
 const express = require('express')
 const app = express()
+const db = require('./db_adapter')
 const server = require('http').Server(app)
 const io = require('socket.io')(server)
 
