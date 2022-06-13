@@ -1,59 +1,33 @@
 const express = require('express')
+const cnf = require('./config')
+var session = require('express-session');
+
 const app = express()
-const db = require('./db_adapter')
+var bodyParser = require('body-parser')
 const server = require('http').Server(app)
 const io = require('socket.io')(server)
 
+const controllers = require("./controllers")(io, session);
+
+app.use(session({
+  secret: 'keyboard cat',
+  resave: false,
+  saveUninitialized: true,
+  cookie: { secure: false }
+}))
+
 app.set('views', './views')
 app.set('view engine', 'ejs')
+
 app.use(express.static('public'))
+app.use(bodyParser.urlencoded({ extended: false }))
+app.use(bodyParser.json())
 app.use(express.urlencoded({ extended: true }))
 
-const rooms = { }
+app.get('/', controllers.httpControllers.index)
+app.post('/room', controllers.httpControllers.createRoom)
+app.get('/:room', controllers.httpControllers.getRoom)
 
-app.get('/', (req, res) => {
-  res.render('index', { rooms: rooms })
-})
 
-app.post('/room', (req, res) => {
-  if (rooms[req.body.room] != null) {
-    return res.redirect('/')
-  }
-  rooms[req.body.room] = { users: {} }
-  res.redirect(req.body.room)
-  // Send message that new room was created
-  io.emit('room-created', req.body.room)
-})
-
-app.get('/:room', (req, res) => {
-  if (rooms[req.params.room] == null) {
-    return res.redirect('/')
-  }
-  res.render('room', { roomName: req.params.room })
-})
-
-server.listen(3000)
-
-io.on('connection', socket => {
-  socket.on('new-user', (room, name) => {
-    socket.join(room)
-    rooms[room].users[socket.id] = name
-    socket.to(room).broadcast.emit('user-connected', name)
-  })
-  socket.on('send-chat-message', (room, message) => {
-    socket.to(room).broadcast.emit('chat-message', { message: message, name: rooms[room].users[socket.id] })
-  })
-  socket.on('disconnect', () => {
-    getUserRooms(socket).forEach(room => {
-      socket.to(room).broadcast.emit('user-disconnected', rooms[room].users[socket.id])
-      delete rooms[room].users[socket.id]
-    })
-  })
-})
-
-function getUserRooms(socket) {
-  return Object.entries(rooms).reduce((names, [name, room]) => {
-    if (room.users[socket.id] != null) names.push(name)
-    return names
-  }, [])
-}
+server.listen(cnf.APP.PORT)
+io.on('connection', controllers.wsControllers.connection)

@@ -4,16 +4,20 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "devStart": "nodemon server.js"
+    "start": "nodemon server.js",
+    "db": "npx knex"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "body-parser": "^1.20.0",
     "dotenv": "^16.0.1",
     "ejs": "^2.6.1",
     "express": "^4.17.1",
+    "express-session": "^1.17.3",
     "knex": "^2.1.0",
     "mysql": "^2.18.1",
+    "objection": "^3.0.1",
     "socket.io": "^2.2.0"
   },
   "devDependencies": {
