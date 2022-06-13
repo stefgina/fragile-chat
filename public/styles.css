@@ -1,0 +1,47 @@
+body {
+    padding: 0;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    background-color: rgb(255, 255, 255);
+    color:black;
+    background-image: url("images/fragile_black.png");
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: center;
+  }
+
+  #message-container {
+    width: 80%;
+    max-width: 1200px;
+    background-color:  rgb(255, 255, 255);
+  }
+
+  #message-container div {
+    background-color: rgb(255, 255, 255);
+    padding: 5px;
+  }
+
+  #message-container div:nth-child(2n) {
+    background-color:  rgb(255, 255, 255);
+  }
+
+  #send-container {
+    position: fixed;
+    padding-bottom: 30px;
+    bottom: 0;
+    background-color:  rgb(255, 255, 255);
+    max-width: 1200px;
+    width: 80%;
+    display: flex;
+  }
+
+  #message-input {
+    flex-grow: 1;
+    background-color:aquamarine;
+
+
+  }
+  form {
+    display: inline-block;
+}
