@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 const socket = io('http://192.168.0.180:3000')
+=======
+const socket = io('http://172.26.29.169:3000')
+>>>>>>> b43693abe382956c8b89702cc88998cb53624c20
 const messageContainer = document.getElementById('message-container')
 const roomContainer = document.getElementById('room-container')
 const messageForm = document.getElementById('send-container')
