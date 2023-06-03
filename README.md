@@ -9,4 +9,4 @@ todo:
 - remote messaging (rendezvous router server)
 - w/ udp hole punching*
 - emoji implementation
-- cryptography research (DH) & impl
+- cryptography research (DH) & implementation
